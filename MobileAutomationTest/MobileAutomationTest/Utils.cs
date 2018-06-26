@@ -22,17 +22,16 @@ namespace MobileAutomationTest
 
             DesiredCapabilities cap = new DesiredCapabilities();
             cap.SetCapability("deviceName", "Android");
-         //   cap.SetCapability("app", "C:\\Merlin\\Merlin-qaDebug-2.12.1.apk");
+          //  cap.SetCapability("app", "C:\\Merlin\\Merlin-qaDebug-2.12.1.apk");
             cap.SetCapability("appPackage", "com.merlinjobs.android");
             cap.SetCapability("appActivity", ".main.SplashActivity");
             cap.SetCapability("platformName", "Android");
-            cap.SetCapability("udid", "CB5A2AYLCQ");
-          //  cap.SetCapability("skipUnlock", true);
+            cap.SetCapability("udid", "emulator-5554");
             cap.SetCapability("platformVersion", "6.0");
 
 
             driver = new AndroidDriver<IWebElement>(new Uri("http://127.0.0.1:4723/wd/hub"), cap);
-            WebDriverWait wait = new WebDriverWait(driver,TimeSpan.FromSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
             wait.Until(ExpectedConditions.ElementIsVisible(By.Id("img_merlin_logo")));
 
             

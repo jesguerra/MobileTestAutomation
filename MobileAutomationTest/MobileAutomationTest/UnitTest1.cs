@@ -26,14 +26,21 @@ namespace MobileAutomationTest
         {
             PageObject pageObject = new PageObject(Utils.driver);
             pageObject.Sucessfull_Income();
-            // pageObject.Validates_Fields_CreateAccount();
-            // pageObject.Create_Existing_Account();
-            // pageObject.Create_Successfull_Account();
-            pageObject.Login_User();
+            pageObject.Validates_Fields_CreateAccount();
+            pageObject.Create_Existing_Account();
+            pageObject.Create_Successfull_Account();
+         
         } 
-        
-          
-        
+
+        [Test]
+        public void Test2()
+        {
+            PageObject pageObject = new PageObject(Utils.driver);
+            pageObject.Login_User();
+        }
+
+
+
         [TearDown]
         public void CloseDriver()
         {

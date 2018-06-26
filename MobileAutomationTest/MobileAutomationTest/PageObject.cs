@@ -67,7 +67,7 @@ namespace MobileAutomationTest
         [FindsBy(How = How.Id, Using = "etZipCode")]
         public IWebElement Zip_Code { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@text='PERMITIR']")]
+        [FindsBy(How = How.XPath, Using = "//*[@text='PERMITIR' or @text='ALLOW']")]
         public IWebElement Permission_Allow { get; set; }
 
         [FindsBy(How = How.Id, Using = "text_sign_up_work_experience_category_position_title")]
@@ -117,13 +117,22 @@ namespace MobileAutomationTest
 
         [FindsBy(How = How.Id, Using = "_text_name")]
         public IWebElement Text_Name { get; set; }
+
+        [FindsBy(How = How.Id, Using = "button_first_option")]
+        public IWebElement Edit_Profile { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@text='Personal Profile']")]
+        public IWebElement Personal_Profile_Title { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//*[@text='Phone Number']")]
+        public IWebElement Number_Field { get; set; }
         /*
          * Test Data
          */
 
         public const string VALUE_EMAIL = "jhonesguerra_2011@hotmail.es";
         public const string VALUE_EMAIL2 = "jhonesguerra2011@hotmail.es";
-        public const string VALUE_EMAIL3 = "jhonesguerra2798@gmail.com";
+        public const string VALUE_EMAIL3 = "jhonesguer401223@gmail.com";
         public const string VALUE_PASS = "Esguerra";
         public const string VALUE_INCORRECT_EMAIL = "ttststststs";
         public const string VALUE_HIDE_PASS = "••••••••";
@@ -137,6 +146,8 @@ namespace MobileAutomationTest
         public const string EXPECT_CREATE_COUNT = "Error:  It looks like youâ€™ve already registered. Please go back and log in.";
         public const string EXPECT_WELCOME_BACK_TITLE = "Welcome back!";
         public const string EXPECT_FIND_JOBS_TITLE = "Find Jobs";
+        public const string VALUE_NUMBER = "3112354211";
+        public const string EXPECT_SEARCH_TEXT = "Please wait, we’re finding great jobs you will love...";
         
 
 
@@ -228,6 +239,7 @@ namespace MobileAutomationTest
             wait2.Until(ExpectedConditions.ElementIsVisible(By.Id("etZipCode")));
             Utils.SendKeys_Keyboard("5434");
             Button_Loading.Click(); //Press button loading
+            wait2.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@text='PERMITIR' or @text='ALLOW']")));
             Permission_Allow.Click();
 
 
@@ -243,10 +255,14 @@ namespace MobileAutomationTest
             Utils.Asserts("Validates, the Congrulation Picture title is correct", EXPECT_COMPLETE_PROFILE, Utils.Get_Attribute(Congrulation_Title, "text"));
             Utils.Asserts("Validates, the Candidate Name is correct", EXPECT_CANDIDATE_NAME, Utils.Get_Attribute(Candidate_Name, "text"));
 
-            //Logout
-            Icon_Profile.Click();
-            Image_Settings.Click();
-            Log_Out.Click();
+            Edit_Profile.Click(); //Press Edit Profile Button
+            wait2.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@text='Personal Profile']"))); //Wait Until the Page "Personal profile" is visible  
+            Number_Field.Click();
+            Number_Field.SendKeys(VALUE_NUMBER);
+            Next_Button.Click();
+            Utils.Asserts("Validates, the Search text", EXPECT_SEARCH_TEXT,Utils.Get_Attribute(Personal_Profile_Title,"text"));
+
+
         }
 
         /*
